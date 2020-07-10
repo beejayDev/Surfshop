@@ -6,10 +6,8 @@ const bodyParser = require("body-parser");
 const logger = require('morgan');
 const passport = require('passport');
 const passportLocal = require('passport-local');
-const passportLocalMongoose = require('passport-local-mongoose');
 const sessions = require('express-session');
 const mongoose = require('mongoose')
-
 
 //requires the model with Passport-Local Mongoose plugged in
 const User = require('./models/user');
@@ -36,11 +34,10 @@ db.once('open', () => {
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
-
 app.use(sessions({
 	name: "sessions",
         secret: "Allah is God",
-        resave: false,                                                                          saveUninitialized: false,
+        resave: false,                                                                         	saveUninitialized: false,
         cookie: {
                 path: "/",
                 //key: '_csrf',
@@ -49,18 +46,16 @@ app.use(sessions({
                 secure: false,                                                                          sameSite: true
         }
 }));
+// Configure passport middleware
+app.use(passport.initialize());
+app.use(passport.session());
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
- 
-// CHANGE: USE "createStrategy" INSTEAD OF "authenticate"
-passport.use(User.createStrategy());
- 
-// use static serialize and deserialize of model for passport session support
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
+
+require('./config/passport')(passport)
 
 //Mount routes
 app.use('/', indexRouter);
