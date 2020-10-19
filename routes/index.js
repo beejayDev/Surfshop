@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const passport = require('passport')
-const { postRegister, postLogin } = require('../controllers/index');
+const { postRegister, postLogin, getLogout, getProfile } = require('../controllers/index');
 const { errorHandler } = require('../middleware');
 
 /* GET home page. */
@@ -17,13 +17,9 @@ router.get('/', (req, res, next) => {
                                                                                         /* Handle login logic */                                                                router.post('/login', postLogin);
 
 /* Logout route */ 
-router.get('/logout', function(req, res) {
-  req.logout();
-  res.redirect('/');
-});
+router.get('/logout', getLogout);
 
-/* Get profile */                                                                       router.get('/profile', (req, res, next) => {  
-	res.send('The Profile page')                                                    });
+/* Get profile */                                                                       router.get('/profile', getProfile);
 
 /* Get user profile page */
 router.get('/profile/:user_id', (req, res, next) => {
@@ -37,7 +33,7 @@ router.put('/forgot', (req, res, next) => {
 /* The reset form */
 router.get('/reset/:token', (req, res, next) => {
         res.send('The Reset token route')
-});
+};
 
 /* Handle the reset form */
 router.put('/reset/:token', (req, res, next) => {
