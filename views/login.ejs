@@ -1,13 +1,13 @@
+<% layout('../layouts/boilerplate') %>
+<% include ./partials/messages %>
 <form action="/login" method="POST">
 <div class="form-group">
-    <label for="exampleInputPassword1">Username</label>
-    <input type="text" name="email" class="form-control" id="exampleInputPassword
-1" placeholder="Enter your Username">
+    <label for="exampleEmail1">Email</label>
+    <input type="email" name="email" class="form-control" id="exampeEmail1" placeholder="Enter your Email">
   </div>
 <div class="form-group">
     <label for="exampleInputPassword1">Password</label>
-    <input type="password" name="password" class="form-control" id="exampleInputPassword
-1" placeholder="Enter your password">
+    <input type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="Enter your password">
   </div>
   <button type="submit" class="btn btn-primary">Submit</button>
   </form>

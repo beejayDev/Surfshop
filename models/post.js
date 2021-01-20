@@ -16,7 +16,8 @@ const PostSchema = new Schema({
 		{
 			type: Schema.Types.ObjectId,
 			ref: 'Review'
-		}                                                                               ]
+		}
+	]
 });
 
 module.exports = mongoose.model('Post', PostSchema)
